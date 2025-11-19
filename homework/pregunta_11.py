@@ -7,6 +7,7 @@ librerias de pandas para resolver las preguntas.
 
 
 def pregunta_11():
+    import pandas as pd
     """
     Construya una tabla que contenga `c0` y una lista separada por ',' de
     los valores de la columna `c4` del archivo `tbl1.tsv`.
@@ -22,3 +23,11 @@ def pregunta_11():
     38   38      d,e
     39   39    a,d,f
     """
+    df = pd.read_csv("files/input/tbl1.tsv", sep="\t")
+    df_agrupado = df.groupby("c0")["c4"].apply(lambda x: ",".join(sorted(x))).to_frame()
+    df_agrupado = df_agrupado.reset_index()
+    df_agrupado = df_agrupado.rename(columns={"c4": "c4"})
+    print(df_agrupado)
+
+    return df_agrupado
+pregunta_11()
